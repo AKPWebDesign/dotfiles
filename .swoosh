@@ -1,0 +1,18 @@
+swoosh () {
+    [ -z "$1" ] && COLOR="white" || COLOR="$1"
+    echo $fg[$COLOR]'
+             `.                                                         .--``
+            o+                                                  `.:+sso+-
+          :mh                                            .:/oydNNho:`
+        `yMM:                                    `-/+shmMMMNds/.
+       -mMMM.                             .:/oydNMMMMMMmy+-
+      :NMMMMo                     `-/+shmMMMMMMMMMmyo:`
+     -MMMMMMMs`            .:+oydNMMMMMMMMMMMNho:`
+     mMMMMMMMMMhs+///+oyhmMMMMMMMMMMMMMMMds/.
+    :MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmy+-
+    /MMMMMMMMMMMMMMMMMMMMMMMMMMNho:`
+    `mMMMMMMMMMMMMMMMMMMMMNds/.
+     .hMMMMMMMMMMMMMMMds+-
+       .+ydmNNmdhyo/.
+    '
+}
