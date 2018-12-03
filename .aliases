@@ -10,7 +10,7 @@ alias more="less"
 alias l="ls -AF"
 
 alias win-docker='eval $(docker-machine env 2019-box)'
-alias mac-docker= 'eval $(docker-machine env -unset)'
+alias mac-docker='eval $(docker-machine env -unset)'
 
 # used to remove trash files created by a dumb "data protection tool"
 alias cls="sudo find . -name \".1a239c90-dae6-f0ef-0af3-093a963e8254.cls\" | xargs sudo rm -rf"
