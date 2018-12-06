@@ -2,5 +2,8 @@
   "files.associations": {
     "*": "shellscript",
     "*.md": "markdown"
-  }
+  },
+  "files.trimTrailingWhitespace": false,
+  "editor.trimAutoWhitespace": false,
+  "files.trimFinalNewlines": false
 }
