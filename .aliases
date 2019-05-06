@@ -8,6 +8,7 @@ alias lstgz="tar ztvf"
 alias lstbz="tar jtvf"
 alias more="less"
 alias l="ls -AF"
+alias c="clear"
 
 alias win-docker='eval $(docker-machine env 2019-box)'
 alias mac-docker='eval $(docker-machine env -unset)'
