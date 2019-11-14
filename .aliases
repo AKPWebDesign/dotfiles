@@ -1,4 +1,4 @@
-alias code="code-insiders"
+# alias code="code-insiders"
 alias zshrc="code ~/.dotfiles"
 alias vzshrc="code ~/.dotfiles"
 alias rl="source ~/.zshrc"
@@ -12,12 +12,13 @@ alias l="ls -AF"
 alias c="clear"
 alias ccat="highlight -O ansi"
 
-alias win-docker='eval $(docker-machine env 2019-box)'
-alias mac-docker='eval $(docker-machine env -unset)'
-
-# used to remove trash files created by a dumb "data protection tool"
-alias cls="sudo find . -name \".1a239c90-dae6-f0ef-0af3-093a963e8254.cls\" | xargs sudo rm -rf"
-
 hlc () { pbpaste | highlight --font-size 24 --font 'Fira Code' --style moria -O rtf "$@" | pbcopy }
 hlcjs () { hlc --syntax=jsx "$@" }
 hlf () { highlight --font-size 24 --font 'Fira Code' --style moria -O rtf "$@" | pbcopy }
+
+nukedocker () {
+  docker stop `docker ps -a -q`;
+  docker rm --force `docker ps -a -q`;
+  docker rmi --force `docker images -q`;
+  docker volume rm --force `docker volume ls -qf dangling=true`;
+}

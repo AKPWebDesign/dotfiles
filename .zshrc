@@ -65,6 +65,5 @@ source $HOME/.dotfiles/.aliases # lots of aliases I use
 source $HOME/.dotfiles/.swoosh # just a Nike swoosh lol
 
 eval $(thefuck --alias) # this loads thefuck (https://github.com/nvbn/thefuck)
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
