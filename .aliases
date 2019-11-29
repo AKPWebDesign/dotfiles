@@ -8,9 +8,14 @@ alias lst="tar tvf"
 alias lstgz="tar ztvf"
 alias lstbz="tar jtvf"
 alias more="less"
-alias l="ls -AF"
 alias c="clear"
 alias ccat="highlight -O ansi"
+
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
 
 hlc () { pbpaste | highlight --font-size 24 --font 'Fira Code' --style moria -O rtf "$@" | pbcopy }
 hlcjs () { hlc --syntax=jsx "$@" }
