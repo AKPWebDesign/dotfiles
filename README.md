@@ -7,4 +7,5 @@ No, seriously. I'm not responsible if your computer bursts into flames or otherw
 after using anything from these dotfiles.
 
 ### Info
-I created these on my work MacBook Pro. They may be broken or unsuitable for any other machines. Feel free to help me fix that though!
+I created these on my work MacBook Pro and cobbled pieces together on multiple MacBook Pros over the years.
+They may be broken or unsuitable for any other machines. Feel free to help me fix that though!
