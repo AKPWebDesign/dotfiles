@@ -43,8 +43,6 @@ plugins=(
   zsh-autosuggestions
 )
 
-source $ZSH/oh-my-zsh.sh
-
 # User configuration
 source $HOME/.dotfiles/.dockeraliases # aliases to programs I want to run within docker
 source $HOME/.dotfiles/.env # environment variables I need to have set
@@ -59,7 +57,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # load NVM
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"`
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit .p10k.zsh.
 [[ ! -f $HOME/.dotfiles/.p10k.zsh ]] || source $HOME/.dotfiles/.p10k.zsh
