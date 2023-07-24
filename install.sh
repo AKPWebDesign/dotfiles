@@ -3,10 +3,10 @@
 CURRENT_DIR=`dirname -- "$( readlink -f -- "$0"; )"`
 
 # create required secret file
-touch `dirname $0`/.env-secret
+touch $CURRENT_DIR/.env-secret
 
 # install homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 if [ "$(uname)" == "Darwin" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)" # make mac homebrew available
 else
@@ -17,7 +17,7 @@ fi
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # remove oh-my-zsh default .zshrc, link to our own
-rm -f ~/.zshrc && ln -s `dirname $0`/.zshrc ~/.zshrc
+rm -f ~/.zshrc && ln -s $CURRENT_DIR/.zshrc ~/.zshrc
 
 # install powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -27,6 +27,9 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 # install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+# install tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
 
 # install packages from homebrew
 brew install tmux thefuck hub lsd deno llvm golang highlight jq fzf gh bat fd ripgrep

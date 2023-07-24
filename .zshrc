@@ -48,7 +48,6 @@ plugins=(
 # User configuration
 source $DOTFILES_DIR/.dockeraliases # aliases to programs I want to run within docker
 source $DOTFILES_DIR/.env # environment variables I need to have set
-source $DOTFILES_DIR/.env-secret # same as above, but private and not stored in git
 source $DOTFILES_DIR/.aliases # lots of aliases I use
 source $DOTFILES_DIR/.swoosh # just a Nike swoosh lol
 
@@ -71,3 +70,6 @@ if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc
 
 # fzf
 [ -f $DOTFILES_DIR/.fzf.zsh ] && source $DOTFILES_DIR/.fzf.zsh
+
+
+source $DOTFILES_DIR/.env-secret # source the private env file last because it might depend on things
