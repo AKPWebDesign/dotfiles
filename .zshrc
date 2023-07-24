@@ -1,3 +1,5 @@
+export DOTFILES_DIR=`dirname -- "$( readlink -f -- "$0"; )"`
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -44,11 +46,11 @@ plugins=(
 )
 
 # User configuration
-source $HOME/.dotfiles/.dockeraliases # aliases to programs I want to run within docker
-source $HOME/.dotfiles/.env # environment variables I need to have set
-source $HOME/.dotfiles/.env-secret # same as above, but private and not stored in git
-source $HOME/.dotfiles/.aliases # lots of aliases I use
-source $HOME/.dotfiles/.swoosh # just a Nike swoosh lol
+source $DOTFILES_DIR/.dockeraliases # aliases to programs I want to run within docker
+source $DOTFILES_DIR/.env # environment variables I need to have set
+source $DOTFILES_DIR/.env-secret # same as above, but private and not stored in git
+source $DOTFILES_DIR/.aliases # lots of aliases I use
+source $DOTFILES_DIR/.swoosh # just a Nike swoosh lol
 
 eval $(thefuck --alias) # this loads thefuck (https://github.com/nvbn/thefuck)
 
@@ -62,4 +64,10 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit .p10k.zsh.
-[[ ! -f $HOME/.dotfiles/.p10k.zsh ]] || source $HOME/.dotfiles/.p10k.zsh
+[[ ! -f $DOTFILES_DIR/.p10k.zsh ]] || source $DOTFILES_DIR/.p10k.zsh
+
+# set up nix
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
+
+# fzf
+[ -f $DOTFILES_DIR/.fzf.zsh ] && source $DOTFILES_DIR/.fzf.zsh

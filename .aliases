@@ -10,6 +10,8 @@ alias lstbz="tar jtvf"
 alias more="less"
 alias c="clear"
 alias ccat="highlight -O ansi"
+alias cat="bat"
+alias grep="rg"
 
 alias ls='lsd'
 alias l='ls -l'

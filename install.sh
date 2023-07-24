@@ -1,11 +1,17 @@
 #!/bin/bash
 
+CURRENT_DIR=`dirname -- "$( readlink -f -- "$0"; )"`
+
 # create required secret file
 touch `dirname $0`/.env-secret
 
 # install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ "$(uname)" == "Darwin" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)" # make mac homebrew available
+else
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # in case we're on linux instead
+fi
 
 # install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -23,8 +29,11 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # install packages from homebrew
-brew install tmux thefuck hub lsd deno llvm golang highlight jq
-brew tap homebrew/cask-fonts && brew install --cask font-fira-code-nerd-font
+brew install tmux thefuck hub lsd deno llvm golang highlight jq fzf gh bat fd ripgrep
+
+if [ "$(uname)" == "Darwin" ]; then
+  brew tap homebrew/cask-fonts && brew install --cask font-fira-code-nerd-font
+fi
 
 # set up go folders
 mkdir -p $HOME/.go/{bin,src,pkg}
