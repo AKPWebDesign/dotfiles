@@ -5,6 +5,9 @@ CURRENT_DIR=`dirname -- "$( readlink -f -- "$0"; )"`
 # create required secret file
 touch $CURRENT_DIR/.env-secret
 
+# it's possible that we didn't just create this, and we might actually need something defined in it for later.
+source $CURRENT_DIR/.env-secret
+
 # install homebrew
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 if [ "$(uname)" == "Darwin" ]; then
@@ -43,3 +46,8 @@ fi
 
 # set up go folders
 mkdir -p $HOME/.go/{bin,src,pkg}
+
+# connect to tailscale if we have an auth key to use
+if [[ -v TS_AUTH_KEY ]]; then
+  sudo tailscale up --auth-key ${TS_AUTH_KEY} --advertise-exit-node --ssh --accept-dns=false
+fi
