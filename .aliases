@@ -23,6 +23,8 @@ hlc () { pbpaste | highlight --font-size 24 --font 'Fira Code' --style moria -O 
 hlcjs () { hlc --syntax=jsx "$@" }
 hlf () { highlight --font-size 24 --font 'Fira Code' --style moria -O rtf "$@" | pbcopy }
 
+gch() { git checkout "$(git branch — all | fzf| tr -d '[:space:]')" }
+
 nukedocker () {
   docker stop `docker ps -a -q`;
   docker rm --force `docker ps -a -q`;
