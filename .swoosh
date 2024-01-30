@@ -1,6 +1,6 @@
 swoosh () {
     [ -z "$1" ] && COLOR="white" || COLOR="$1"
-    [ -z "$2" ] && BG_COLOR="black" || BG_COLOR="$2"
+    [ -z "$2" ] && BG_COLOR="clear" || BG_COLOR="$2"
     echo $fg[$COLOR]$bg[$BG_COLOR]'
              `.                                                         .--``   
             o+                                                  `.:+sso+-       
