@@ -33,8 +33,6 @@ chmod 600 $HOME/.ssh/id_ed25519
 # git-crypt should be ready to go now
 git-crypt unlock
 
-exit 1
-
 # install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
