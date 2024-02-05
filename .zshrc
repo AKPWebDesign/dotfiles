@@ -74,5 +74,3 @@ if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc
 
 
 source $DOTFILES_DIR/.env-secret # source the private env file last because it might depend on things
-
-stow .
