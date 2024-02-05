@@ -59,7 +59,7 @@ curl -fsSL https://tailscale.com/install.sh | sh
 brew install \
   tmux thefuck hub lsd deno llvm \
   golang highlight jq fzf gh bat \
-  fd ripgrep stow 
+  fd ripgrep 
 
 if [ "$(uname)" == "Darwin" ]; then
   brew tap homebrew/cask-fonts && brew install --cask font-fira-code-nerd-font
