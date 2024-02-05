@@ -1,11 +1,4 @@
-export DOTFILES_DIR=`dirname -- "$( readlink -f -- "$0"; )"`
-
-# on some systems, DOTFILES_DIR is set one level too high and we need to
-# ensure we're in the right folder. ideally, we wouldn't be making an
-# assumption about where the dotfiles directory is, so hopefully I can fix this later?
-if [ -d "$DOTFILES_DIR/.dotfiles" ]; then
-  export DOTFILES_DIR="$DOTFILES_DIR/.dotfiles"
-fi
+export DOTFILES_DIR=`$HOME/.config/dotfiles`
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]

@@ -3,10 +3,10 @@
 CURRENT_DIR=`dirname -- "$( readlink -f -- "$0"; )"`
 
 # create required secret file
-touch $CURRENT_DIR/.env-secret
+touch $CURRENT_DIR/.config/dotfiles/.env-secret
 
 # it's possible that we didn't just create this, and we might actually need something defined in it for later.
-source $CURRENT_DIR/.env-secret
+source $CURRENT_DIR/.config/dotfiles/.env-secret
 
 # install homebrew
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -38,7 +38,10 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 curl -fsSL https://tailscale.com/install.sh | sh
 
 # install packages from homebrew
-brew install tmux thefuck hub lsd deno llvm golang highlight jq fzf gh bat fd ripgrep
+brew install \
+  tmux thefuck hub lsd deno llvm \
+  golang highlight jq fzf gh bat \
+  fd ripgrep stow
 
 if [ "$(uname)" == "Darwin" ]; then
   brew tap homebrew/cask-fonts && brew install --cask font-fira-code-nerd-font
@@ -51,3 +54,5 @@ mkdir -p $HOME/.go/{bin,src,pkg}
 if [[ -v TS_AUTH_KEY ]]; then
   sudo tailscale up --auth-key ${TS_AUTH_KEY} --advertise-exit-node --ssh --accept-dns=false
 fi
+
+stow .
