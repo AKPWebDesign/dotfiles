@@ -25,6 +25,8 @@ hlf () { highlight --font-size 24 --font 'Fira Code' --style moria -O rtf "$@" |
 
 gch() { git checkout "$(git branch — all | fzf| tr -d '[:space:]')" }
 
+tsup() { sudo tailscale up --auth-key $TS_AUTH_KEY --advertise-exit-node --ssh --accept-dns=false }
+
 nukedocker () {
   docker stop `docker ps -a -q`;
   docker rm --force `docker ps -a -q`;

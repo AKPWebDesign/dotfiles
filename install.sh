@@ -36,6 +36,10 @@ git-crypt unlock
 # install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
+# oh-my-zsh probably moved our .zshrc, let's put it back.
+rm -f $HOME/.zshrc $HOME/.zshrc.pre-oh-my-zsh
+stow .
+
 # install powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
@@ -63,8 +67,3 @@ fi
 
 # set up go folders
 mkdir -p $HOME/.go/{bin,src,pkg}
-
-# connect to tailscale if we have an auth key to use
-if [[ -v TS_AUTH_KEY ]]; then
-  sudo tailscale up --auth-key ${TS_AUTH_KEY} --advertise-exit-node --ssh --accept-dns=false
-fi
