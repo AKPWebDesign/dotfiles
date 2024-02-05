@@ -1,6 +1,8 @@
-.git/
-.gitignore
-.vscode/
+\.git
+\.gitignore
+\.git-crypt
+\.gitattributes
+\.vscode/
 install.sh
 LICENSE
 README.md
