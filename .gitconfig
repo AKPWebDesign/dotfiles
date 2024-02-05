@@ -1,3 +1,6 @@
 [user]
 	email = austin@akpwebdesign.com
 	name = Austin Peterson
+	signingkey = B5071737EB3FF815
+[commit]
+	gpgsign = true

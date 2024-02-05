@@ -1,4 +1,5 @@
 export DOTFILES_DIR="$HOME/.config/dotfiles"
+source $DOTFILES_DIR/.env # we need PATH set early
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -48,7 +49,6 @@ plugins=(
 
 # User configuration
 source $DOTFILES_DIR/.dockeraliases # aliases to programs I want to run within docker
-source $DOTFILES_DIR/.env # environment variables I need to have set
 source $DOTFILES_DIR/.aliases # lots of aliases I use
 source $DOTFILES_DIR/.swoosh # just a Nike swoosh lol
 
