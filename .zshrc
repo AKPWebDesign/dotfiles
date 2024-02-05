@@ -1,4 +1,4 @@
-export DOTFILES_DIR=`$HOME/.config/dotfiles`
+export DOTFILES_DIR="$HOME/.config/dotfiles"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -74,3 +74,5 @@ if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc
 
 
 source $DOTFILES_DIR/.env-secret # source the private env file last because it might depend on things
+
+stow .
