@@ -25,6 +25,11 @@ export GPG_TTY=$(tty)
 source $HOME/.config/dotfiles/.gpg
 op read op://secrets/gpg/private.key | gpg --import --batch --passphrase $(op read op://secrets/gpg/password)
 
+# install ssh key
+mkdir -p $HOME/.ssh
+op read op://secrets/ssh/private_key > $HOME/.ssh/id_ed25519
+chmod 600 $HOME/.ssh/id_ed25519
+
 # git-crypt should be ready to go now
 git-crypt unlock
 
