@@ -1,7 +1,6 @@
 export DOTFILES_DIR="$HOME/.config/dotfiles"
 source $DOTFILES_DIR/.env # we need PATH set early
-
-eval $(op signin)
+source $DOTFILES_DIR/.gpg # source the gpg file early, it handles 1password login
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
