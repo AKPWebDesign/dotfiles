@@ -50,6 +50,7 @@ plugins=(
 )
 
 # User configuration
+source $DOTFILES_DIR/.env-local # local env file
 source $DOTFILES_DIR/.dockeraliases # aliases to programs I want to run within docker
 source $DOTFILES_DIR/.aliases # lots of aliases I use
 source $DOTFILES_DIR/.swoosh # just a Nike swoosh lol
