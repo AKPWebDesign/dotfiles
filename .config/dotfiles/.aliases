@@ -1,7 +1,7 @@
 # alias code="code-insiders"
 alias zshrc="code ~/.dotfiles"
 alias vzshrc="code ~/.dotfiles"
-alias rl="source ~/.zshrc"
+alias rl="exec zsh"
 alias gs="git diff --shortstat"
 alias git="hub"
 alias lst="tar tvf"
