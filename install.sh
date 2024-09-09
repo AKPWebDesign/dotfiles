@@ -65,7 +65,7 @@ brew install \
   fd ripgrep 
 
 if [ "$(uname)" == "Darwin" ]; then
-  brew tap homebrew/cask-fonts && brew install --cask font-fira-code-nerd-font
+  brew install --cask font-fira-code-nerd-font
 fi
 
 # set up go folders
