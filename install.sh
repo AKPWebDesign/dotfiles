@@ -62,10 +62,10 @@ curl -fsSL https://tailscale.com/install.sh | sh
 brew install \
   tmux thefuck hub lsd deno llvm \
   golang highlight jq fzf gh bat \
-  fd ripgrep 
+  fd ripgrep volta
 
 if [ "$(uname)" == "Darwin" ]; then
-  brew install --cask font-fira-code-nerd-font
+  brew install --cask font-fira-code-nerd-font font-jetbrains-mono-nerd-font
 fi
 
 # set up go folders
