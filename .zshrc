@@ -1,4 +1,5 @@
 export DOTFILES_DIR="$HOME/.config/dotfiles"
+source $DOTFILES_DIR/.env-op-service-account # op service account env file, sourced before other env stuff so we can ensure we're already logged in
 source $DOTFILES_DIR/.env # we need PATH set early
 source $DOTFILES_DIR/.gpg # source the gpg file early, it handles 1password login
 
