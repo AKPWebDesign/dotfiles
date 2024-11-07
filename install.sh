@@ -41,7 +41,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 
 # oh-my-zsh probably moved our .zshrc, let's put it back.
 rm -f $HOME/.zshrc $HOME/.zshrc.pre-oh-my-zsh
-stow .
+stow . -t $HOME
 
 # install powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k

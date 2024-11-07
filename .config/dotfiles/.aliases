@@ -1,4 +1,4 @@
-# alias code="code-insiders"
+alias code="cursor" # TODO: make this be smarter and only alias code in the event that cursor is installed
 alias zshrc="code ~/.dotfiles"
 alias vzshrc="code ~/.dotfiles"
 alias rl="exec zsh"
