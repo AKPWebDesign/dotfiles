@@ -2,7 +2,7 @@
 
 CURRENT_DIR=`dirname -- "$( readlink -f -- "$0"; )"`
 
-# add local env file
+# create local env files
 touch $CURRENT_DIR/.config/dotfiles/.env-local
 touch $CURRENT_DIR/.config/dotfiles/.env-op-service-account
 
