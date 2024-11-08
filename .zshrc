@@ -1,7 +1,26 @@
 export DOTFILES_DIR="$HOME/.config/dotfiles"
-source $DOTFILES_DIR/.env-op-service-account # op service account env file, sourced before other env stuff so we can ensure we're already logged in
+
+source $DOTFILES_DIR/.env-op-service-account # op service account env file, sourced at the top so we can ensure we're already logged in
+source $DOTFILES_DIR/.check-internet # check if we have internet before we do anything
+source $DOTFILES_DIR/.update-dotfiles # update from git if needed
+
+# if we updated, we need to exit and restart the shell to pull the latest changes
+if [ -n "$UPDATED_DOTFILES" ]; then
+  echo "----------------------------------------"
+  echo "Dotfiles updated, restarting shell to pull the latest changes."
+  echo "----------------------------------------"
+  exec $SHELL
+fi
+
 source $DOTFILES_DIR/.env # we need PATH set early
-source $DOTFILES_DIR/.gpg # source the gpg file early, it handles 1password login
+
+if [ -z "$NO_INTERNET" ]; then
+  source $DOTFILES_DIR/.gpg # source the gpg file early, it handles 1password login
+else
+  echo "----------------------------------------"
+  echo "No internet, skipping 1Password login and gpg passphrase caching. Expect things to be broken!"
+  echo "----------------------------------------"
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]

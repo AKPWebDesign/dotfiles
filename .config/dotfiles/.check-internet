@@ -1,0 +1,4 @@
+# check if we have internet. if not, we'll set an environment variable that we can check later.
+if ! ping -c 1 -W 1 google.com &>/dev/null; then
+  export NO_INTERNET=true
+fi

@@ -1,0 +1,31 @@
+# update from git if things have changed on the remote.
+# if there are local changes, they will be stashed and then popped after the update.
+
+# if we don't have internet, exit early.
+if [ -n "$NO_INTERNET" ]; then
+  return
+fi
+
+CURRENT_BRANCH=$(git -C "$DOTFILES_DIR" rev-parse --abbrev-ref HEAD)
+
+# fetch updates from remote
+git -C "$DOTFILES_DIR" fetch origin $CURRENT_BRANCH &>/dev/null
+
+# check if we're behind the remote
+if [ $(git -C "$DOTFILES_DIR" rev-list HEAD..origin/$CURRENT_BRANCH --count) -gt 0 ]; then
+  # check if we have local changes
+  if ! git -C "$DOTFILES_DIR" diff --quiet; then
+    # stash local changes
+    git -C "$DOTFILES_DIR" stash
+    LOCAL_CHANGES=1
+  fi
+
+  # pull changes
+  git -C "$DOTFILES_DIR" pull origin $CURRENT_BRANCH
+  UPDATED_DOTFILES=true
+
+  # restore local changes if we stashed them
+  if [ "$LOCAL_CHANGES" = "1" ]; then
+    git -C "$DOTFILES_DIR" stash pop
+  fi
+fi
