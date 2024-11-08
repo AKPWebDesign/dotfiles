@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Get the actual path to this script to avoid infinite recursion
+SCRIPT_PATH=$(realpath "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+if command -v cursor >/dev/null 2>&1; then
+    exec cursor "$@"
+elif command -v code >/dev/null 2>&1; then
+    # Only execute 'code' if it's not this script
+    CODE_PATH=$(command -v code)
+    if [ "$CODE_PATH" != "$SCRIPT_PATH" ]; then
+        exec code "$@"
+    else
+        # Find the next 'code' in PATH after this script
+        PATH=$(echo "$PATH" | sed "s|$SCRIPT_DIR||g" | sed 's/::/:/g' | sed 's/^://' | sed 's/:$//')
+        if command -v code >/dev/null 2>&1; then
+            exec code "$@"
+        else
+            echo "Error: Neither cursor nor VSCode found in PATH" >&2
+            exit 1
+        fi
+    fi
+else
+    echo "Error: Neither cursor nor VSCode found in PATH" >&2
+    exit 1
+fi
