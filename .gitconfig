@@ -1,15 +1,44 @@
 [url "\"git@github.com:\""]
 	insteadOf = \"https://github.com/\"
+
 [user]
 	email = austin@akpwebdesign.com
 	name = Austin Peterson
 	signingkey = B5071737EB3FF815
+
+[init]
+	defaultBranch = main
+
 [commit]
 	gpgsign = true
+
 [push]
 	autoSetupRemote = true
 	default = current
+
 [alias]
 	ch = !git checkout $(git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$    1]++' | head -n 20 | cut -d '~' -f 1 | fzf)
 	clean-reflog = !git reflog expire --expire=14.days.ago --expire-unreachable=now --all
 	clean-reflog-all = !git reflog expire --expire=now --expire-unreachable=now --all
+
+[core]
+	pager = delta
+	editor = code -w
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	light = false
+	line-numbers = true
+	side-by-side = true
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
+	
+[fetch]
+	prune = true
