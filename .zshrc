@@ -4,6 +4,9 @@ export DOTFILES_DIR="$HOME/.config/dotfiles"
 touch $DOTFILES_DIR/.env-local
 touch $DOTFILES_DIR/.env-op-service-account
 
+# create local bin folder in case it doesn't exist
+mkdir -p $HOME/.local/bin
+
 source $DOTFILES_DIR/.env-op-service-account # op service account env file, sourced at the top so we can ensure we're already logged in
 source $DOTFILES_DIR/.check-internet # check if we have internet before we do anything
 source $DOTFILES_DIR/.update-dotfiles # update from git if needed

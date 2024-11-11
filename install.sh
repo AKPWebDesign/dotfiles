@@ -6,6 +6,9 @@ CURRENT_DIR=`dirname -- "$( readlink -f -- "$0"; )"`
 touch $CURRENT_DIR/.config/dotfiles/.env-local
 touch $CURRENT_DIR/.config/dotfiles/.env-op-service-account
 
+# create local bin folder in case it doesn't exist
+mkdir -p $HOME/.local/bin
+
 # install homebrew
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 if [ "$(uname)" == "Darwin" ]; then
