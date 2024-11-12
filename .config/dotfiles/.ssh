@@ -1,3 +1,7 @@
 mkdir -p $HOME/.ssh
-op read op://secrets/ssh/private_key > $HOME/.ssh/id_ed25519
-chmod 600 $HOME/.ssh/id_ed25519
+
+# check the size of the existing private key, we only need to overwrite it if it's broken/non-existent
+if [ ! -s $HOME/.ssh/id_ed25519 ]; then
+  op read op://secrets/ssh/private_key > $HOME/.ssh/id_ed25519
+  chmod 600 $HOME/.ssh/id_ed25519
+fi
