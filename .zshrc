@@ -23,6 +23,7 @@ source $DOTFILES_DIR/.env # we need PATH set early
 
 if [ -z "$NO_INTERNET" ]; then
   source $DOTFILES_DIR/.gpg # source the gpg file early, it handles 1password login
+  source $DOTFILES_DIR/.ssh # ensure our SSH key is loaded locally
 else
   echo "----------------------------------------"
   echo "No internet, skipping 1Password login and gpg passphrase caching. Expect things to be broken!"
