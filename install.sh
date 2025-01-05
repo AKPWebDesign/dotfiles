@@ -64,13 +64,14 @@ curl -fsSL https://tailscale.com/install.sh | sh
 
 # install rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source $HOME/.cargo/env # ensure cargo is available for the rest of the install script
 
 # install packages from homebrew
 brew install \
   tmux thefuck hub lsd deno llvm \
   golang highlight jq fzf gh bat \
   fd ripgrep volta delta tmux
-  
+
 # oh-my-tmux
 git clone --single-branch https://github.com/gpakosz/.tmux.git $HOME/.oh-my-tmux
 mkdir -p $HOME/.config/tmux
