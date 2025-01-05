@@ -62,6 +62,9 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 # install tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 
+# install rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
 # install packages from homebrew
 brew install \
   tmux thefuck hub lsd deno llvm \
