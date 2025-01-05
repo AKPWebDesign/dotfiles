@@ -21,9 +21,9 @@ if [ -n "$UPDATED_DOTFILES" ]; then
   echo "----------------------------------------"
   echo "Dotfiles updated, re-running install.sh and restarting shell to pull the latest changes."
   echo "----------------------------------------"
-  # get the true path to the install.sh script, which relies on getting the root of the git repo
-  INSTALL_SCRIPT=$(git rev-parse --show-toplevel)/install.sh
-  source $INSTALL_SCRIPT
+  # we should be in the root of the git repo when we run the script
+  cd $(git rev-parse --show-toplevel)
+  bash install.sh
   exec $SHELL
 fi
 

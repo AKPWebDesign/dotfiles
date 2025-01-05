@@ -59,8 +59,10 @@ git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custo
 # install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-# install tailscale
-curl -fsSL https://tailscale.com/install.sh | sh
+# install tailscale (but only if tailscale isn't already installed because on mac it'll open an annoying browser window)
+if ! command -v tailscale &> /dev/null; then
+  curl -fsSL https://tailscale.com/install.sh | sh
+fi
 
 # install packages from homebrew
 brew install \
