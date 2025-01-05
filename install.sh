@@ -69,8 +69,9 @@ brew install \
   fd ripgrep volta delta tmux
   
 # oh-my-tmux
-git clone --single-branch https://github.com/gpakosz/.tmux.git $HOME/.tmux
-ln -s -f $HOME/.tmux/.tmux.conf $HOME/.tmux.conf
+git clone --single-branch https://github.com/gpakosz/.tmux.git $HOME/.oh-my-tmux
+mkdir -p $HOME/.config/tmux
+ln -s -f $HOME/.oh-my-tmux/.tmux.conf $HOME/.config/tmux/tmux.conf
 
 if [ "$(uname)" == "Darwin" ]; then
   brew install --cask font-fira-code-nerd-font font-jetbrains-mono-nerd-font
