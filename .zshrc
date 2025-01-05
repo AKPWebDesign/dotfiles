@@ -19,8 +19,11 @@ source $DOTFILES_DIR/.update-dotfiles # update from git if needed
 # if we updated, we need to exit and restart the shell to pull the latest changes
 if [ -n "$UPDATED_DOTFILES" ]; then
   echo "----------------------------------------"
-  echo "Dotfiles updated, restarting shell to pull the latest changes."
+  echo "Dotfiles updated, re-running install.sh and restarting shell to pull the latest changes."
   echo "----------------------------------------"
+  # get the true path to the install.sh script, which relies on getting the root of the git repo
+  INSTALL_SCRIPT=$(git rev-parse --show-toplevel)/install.sh
+  source $INSTALL_SCRIPT
   exec $SHELL
 fi
 
