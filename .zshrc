@@ -4,6 +4,7 @@ if [ -z "$TMUX" ]; then
 fi
 
 export DOTFILES_DIR="$HOME/.config/dotfiles"
+export DOTFILES_ROOT=$(cd $DOTFILES_DIR && git rev-parse --show-toplevel)
 
 # create local env files if they don't exist
 touch $DOTFILES_DIR/.env-local
@@ -22,8 +23,7 @@ if [ -n "$UPDATED_DOTFILES" ]; then
   echo "Dotfiles updated, re-running install.sh and restarting shell to pull the latest changes."
   echo "----------------------------------------"
   # we should be in the root of the git repo when we run the script
-  cd $DOTFILES_DIR
-  cd $(git rev-parse --show-toplevel)
+  cd $DOTFILES_ROOT
   bash install.sh
   clear
   exec $SHELL

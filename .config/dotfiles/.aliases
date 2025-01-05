@@ -1,5 +1,5 @@
-alias zshrc="code ~/.dotfiles"
-alias vzshrc="code ~/.dotfiles"
+alias zshrc="code $DOTFILES_ROOT"
+alias vzshrc="code $DOTFILES_ROOT"
 alias rl="exec zsh"
 alias gs="git diff --shortstat"
 alias git="hub"
