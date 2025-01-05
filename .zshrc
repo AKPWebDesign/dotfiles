@@ -25,6 +25,7 @@ if [ -n "$UPDATED_DOTFILES" ]; then
   cd $DOTFILES_DIR
   cd $(git rev-parse --show-toplevel)
   bash install.sh
+  clear
   exec $SHELL
 fi
 
