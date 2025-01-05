@@ -22,6 +22,7 @@ if [ -n "$UPDATED_DOTFILES" ]; then
   echo "Dotfiles updated, re-running install.sh and restarting shell to pull the latest changes."
   echo "----------------------------------------"
   # we should be in the root of the git repo when we run the script
+  cd $DOTFILES_DIR
   cd $(git rev-parse --show-toplevel)
   bash install.sh
   exec $SHELL
