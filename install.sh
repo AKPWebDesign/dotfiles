@@ -66,7 +66,11 @@ curl -fsSL https://tailscale.com/install.sh | sh
 brew install \
   tmux thefuck hub lsd deno llvm \
   golang highlight jq fzf gh bat \
-  fd ripgrep volta delta
+  fd ripgrep volta delta tmux
+  
+# oh-my-tmux
+git clone --single-branch https://github.com/gpakosz/.tmux.git $HOME/.tmux
+ln -s -f $HOME/.tmux/.tmux.conf $HOME/.tmux.conf
 
 if [ "$(uname)" == "Darwin" ]; then
   brew install --cask font-fira-code-nerd-font font-jetbrains-mono-nerd-font

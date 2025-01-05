@@ -1,3 +1,8 @@
+# put us in a tmux session
+if [ -z "$TMUX" ]; then
+  exec tmux new-session -A -s workspace
+fi
+
 export DOTFILES_DIR="$HOME/.config/dotfiles"
 
 # create local env files if they don't exist
