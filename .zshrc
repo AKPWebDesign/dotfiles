@@ -1,5 +1,5 @@
 # put us in a tmux session
-if [ -z "$TMUX" ]; then
+if [ -z "$TMUX" ] && [ -z "$NO_TMUX" ]; then
   exec tmux new-session -A -s workspace
 fi
 
