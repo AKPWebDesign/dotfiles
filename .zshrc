@@ -1,5 +1,5 @@
 # put us in a tmux session
-if [ -z "$TMUX" ] && [ -z "$NO_TMUX" ]; then
+if [ -z "$TMUX" ] && [ -z "$NO_TMUX" ] && which tmux > /dev/null; then
   exec tmux new-session -A -s workspace
 fi
 
@@ -114,3 +114,10 @@ if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc
 
 
 source $DOTFILES_DIR/.env-secret # source the private env file last because it might depend on things
+
+# bun completions
+[ -s "/Users/austin.peterson/.bun/_bun" ] && source "/Users/austin.peterson/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
