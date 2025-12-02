@@ -14,6 +14,7 @@ touch $DOTFILES_DIR/.env-op-service-account
 mkdir -p $HOME/.local/bin
 
 source $DOTFILES_DIR/.env-op-service-account # op service account env file, sourced at the top so we can ensure we're already logged in
+source $DOTFILES_DIR/.env # we need PATH set early
 source $DOTFILES_DIR/.check-internet # check if we have internet before we do anything
 source $DOTFILES_DIR/.update-dotfiles # update from git if needed
 
@@ -28,8 +29,6 @@ if [ -n "$UPDATED_DOTFILES" ]; then
   clear
   exec $SHELL
 fi
-
-source $DOTFILES_DIR/.env # we need PATH set early
 
 if [ -z "$NO_INTERNET" ]; then
   source $DOTFILES_DIR/.gpg # source the gpg file early, it handles 1password login
