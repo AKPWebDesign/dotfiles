@@ -2,6 +2,15 @@
 
 CURRENT_DIR=`dirname -- "$( readlink -f -- "$0"; )"`
 
+# ensure brew is on PATH when script is run from .zshrc after a pull
+if ! command -v brew >/dev/null 2>&1; then
+  if [ "$(uname)" = "Darwin" ] && [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  fi
+fi
+
 # create local env files
 touch $CURRENT_DIR/.config/dotfiles/.env-local
 touch $CURRENT_DIR/.config/dotfiles/.env-op-service-account
@@ -12,14 +21,14 @@ mkdir -p $HOME/.local/bin
 # install homebrew
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 if [ "$(uname)" == "Darwin" ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)" # make mac homebrew available
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 else
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # in case we're on linux instead
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # gotta do stow and git-crypt early so files are in their final locations
 brew install stow git-crypt
-stow .
+stow . -t "$HOME"
 
 source $HOME/.config/dotfiles/.env
 
@@ -27,18 +36,21 @@ if [ "$(uname)" == "Darwin" ]; then
   brew install 1password-cli gnupg
 fi
 
-# set up gpg key password caching and import gpg key
-export GPG_TTY=$(tty)
-source $HOME/.config/dotfiles/.gpg
-op read op://secrets/gpg/private.key | gpg --import --batch --passphrase $(op read op://secrets/gpg/password)
+# skip 1Password/gpg/ssh/git-crypt when run after a pull (op session not available in that context)
+if [ -z "$DOTFILES_AFTER_PULL" ]; then
+  # set up gpg key password caching and import gpg key
+  export GPG_TTY=$(tty)
+  source $HOME/.config/dotfiles/.gpg
+  op read op://secrets/gpg/private.key | gpg --import --batch --passphrase $(op read op://secrets/gpg/password)
 
-# install ssh key
-mkdir -p $HOME/.ssh
-op read op://secrets/ssh/private_key > $HOME/.ssh/id_ed25519
-chmod 600 $HOME/.ssh/id_ed25519
+  # install ssh key
+  mkdir -p $HOME/.ssh
+  op read op://secrets/ssh/private_key > $HOME/.ssh/id_ed25519
+  chmod 600 $HOME/.ssh/id_ed25519
 
-# git-crypt should be ready to go now
-git-crypt unlock
+  # git-crypt should be ready to go now
+  git-crypt unlock
+fi
 
 # install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

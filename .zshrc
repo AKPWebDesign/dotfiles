@@ -18,16 +18,19 @@ source $DOTFILES_DIR/.env # we need PATH set early
 source $DOTFILES_DIR/.check-internet # check if we have internet before we do anything
 source $DOTFILES_DIR/.update-dotfiles # update from git if needed
 
-# if we updated, we need to exit and restart the shell to pull the latest changes
+# if we updated, re-run install.sh so new deps get installed, then restart shell
 if [ -n "$UPDATED_DOTFILES" ]; then
   echo "----------------------------------------"
   echo "Dotfiles updated, re-running install.sh and restarting shell to pull the latest changes."
   echo "----------------------------------------"
-  # we should be in the root of the git repo when we run the script
-  cd $DOTFILES_ROOT
-  bash install.sh
-  clear
-  exec $SHELL
+  cd "$DOTFILES_ROOT" || exit 1
+  if DOTFILES_AFTER_PULL=1 bash install.sh; then
+    clear
+    exec $SHELL
+  else
+    echo "install.sh failed (e.g. git-crypt or 1Password unavailable). Fix and run install.sh manually, or open a new shell to skip."
+    unset UPDATED_DOTFILES
+  fi
 fi
 
 if [ -z "$NO_INTERNET" ]; then
