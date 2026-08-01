@@ -90,8 +90,6 @@ plugins=(
 
 # User configuration
 source $DOTFILES_DIR/.env-local # local env file
-source $DOTFILES_DIR/.dockeraliases # aliases to programs I want to run within docker
-source $DOTFILES_DIR/.aliases # lots of aliases I use
 source $DOTFILES_DIR/.swoosh # just a Nike swoosh lol
 
 eval $(thefuck --alias) # this loads thefuck (https://github.com/nvbn/thefuck)
@@ -104,6 +102,10 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 source $ZSH/oh-my-zsh.sh
+
+# aliases must come after oh-my-zsh.sh, or plugins like common-aliases clobber them
+source $DOTFILES_DIR/.dockeraliases # aliases to programs I want to run within docker
+source $DOTFILES_DIR/.aliases # lots of aliases I use
 
 # To customize prompt, run `p10k configure` or edit .p10k.zsh.
 [[ ! -f $DOTFILES_DIR/.p10k.zsh ]] || source $DOTFILES_DIR/.p10k.zsh
