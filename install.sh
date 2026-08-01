@@ -80,7 +80,7 @@ source $HOME/.cargo/env # ensure cargo is available for the rest of the install 
 
 # install packages from homebrew
 brew install \
-  tmux thefuck hub lsd deno llvm \
+  tmux thefuck lsd deno llvm \
   golang highlight jq fzf gh bat \
   fd ripgrep volta delta
 
