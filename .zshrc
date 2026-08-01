@@ -116,7 +116,12 @@ if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc
 [ -f $DOTFILES_DIR/.fzf.zsh ] && source $DOTFILES_DIR/.fzf.zsh
 
 
-source $DOTFILES_DIR/.env-secret # source the private env file last because it might depend on things
+# source the private env file last because it might depend on things
+if [ "$(head -c 9 $DOTFILES_DIR/.env-secret | tr -d '\0')" != "GITCRYPT" ]; then
+  source $DOTFILES_DIR/.env-secret
+else
+  echo "WARNING: .env-secret is still git-crypt encrypted, skipping it. Run 'git-crypt unlock' in $DOTFILES_ROOT."
+fi
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
