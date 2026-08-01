@@ -2,6 +2,10 @@ mkdir -p $HOME/.ssh
 
 # check the size of the existing private key, we only need to overwrite it if it's broken/non-existent
 if [ ! -s $HOME/.ssh/id_ed25519 ]; then
-  op read op://secrets/ssh/private_key > $HOME/.ssh/id_ed25519
-  chmod 600 $HOME/.ssh/id_ed25519
+  if KEY=$(op read op://secrets/ssh/private_key); then
+    (umask 077; printf '%s\n' "$KEY" > $HOME/.ssh/id_ed25519)
+  else
+    echo "WARNING: couldn't read ssh key from 1password, skipping install of it."
+  fi
+  unset KEY
 fi
