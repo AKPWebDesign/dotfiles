@@ -16,4 +16,4 @@ fi
 
 # Key bindings
 # ------------
-source "$FZF_DIR/shell/key-bindings.zsh"
+[ -f "$FZF_DIR/shell/key-bindings.zsh" ] && source "$FZF_DIR/shell/key-bindings.zsh"
