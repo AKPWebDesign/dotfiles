@@ -15,7 +15,7 @@ mkdir -p $HOME/.local/bin
 
 source $DOTFILES_DIR/.env-op-service-account # op service account env file, sourced at the top so we can ensure we're already logged in
 source $DOTFILES_DIR/.env # we need PATH set early
-source $DOTFILES_DIR/.check-internet # check if we have internet before we do anything
+source $DOTFILES_DIR/.check-internet # defines internet_up() for anything that needs the network
 source $DOTFILES_DIR/.update-dotfiles # update from git if needed
 
 # if we updated, re-run install.sh so new deps get installed, then restart shell
@@ -32,14 +32,8 @@ if [ -n "$UPDATED_DOTFILES" ]; then
   fi
 fi
 
-if [ -z "$NO_INTERNET" ]; then
-  source $DOTFILES_DIR/.gpg # source the gpg file early, it handles 1password login
-  source $DOTFILES_DIR/.ssh # ensure our SSH key is loaded locally
-else
-  echo "----------------------------------------"
-  echo "No internet, skipping 1Password login and gpg passphrase caching. Expect things to be broken!"
-  echo "----------------------------------------"
-fi
+source $DOTFILES_DIR/.gpg # 1password login + gpg passphrase caching; self-skips when offline
+source $DOTFILES_DIR/.ssh # ensure our SSH key is present locally; self-skips when offline
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]

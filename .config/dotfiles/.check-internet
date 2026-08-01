@@ -1,4 +1,12 @@
-# check if we have internet. if not, we'll set an environment variable that we can check later.
-if ! curl -sf -m 2 https://www.google.com/generate_204 >/dev/null 2>&1; then
-  export NO_INTERNET=true
-fi
+# lazy internet check: only pays for the curl when something actually needs the
+# network, and caches the answer for the life of the shell.
+internet_up () {
+  if [ -z "$_INTERNET_UP" ]; then
+    if curl -sf -m 2 https://www.google.com/generate_204 >/dev/null 2>&1; then
+      _INTERNET_UP=yes
+    else
+      _INTERNET_UP=no
+    fi
+  fi
+  [ "$_INTERNET_UP" = "yes" ]
+}

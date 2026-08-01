@@ -8,9 +8,7 @@ if [ -n "$(find "$UPDATE_STAMP" -mmin -360 2>/dev/null)" ]; then
 fi
 
 # if we don't have internet, exit early.
-if [ -n "$NO_INTERNET" ]; then
-  return
-fi
+internet_up || return
 
 touch "$UPDATE_STAMP"
 
