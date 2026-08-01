@@ -19,12 +19,14 @@ touch $CURRENT_DIR/.config/dotfiles/.env-op-service-account
 # create local bin folder in case it doesn't exist
 mkdir -p $HOME/.local/bin
 
-# install homebrew
-NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-if [ "$(uname)" == "Darwin" ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-else
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# install homebrew if we don't have it yet
+if ! command -v brew >/dev/null 2>&1; then
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  if [ "$(uname)" == "Darwin" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  else
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  fi
 fi
 
 # gotta do stow and git-crypt early so files are in their final locations
@@ -56,28 +58,32 @@ if [ -z "$DOTFILES_AFTER_PULL" ]; then
   git-crypt unlock
 fi
 
-# install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+# install oh-my-zsh if we don't have it yet
+if [ ! -d $HOME/.oh-my-zsh ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-# oh-my-zsh probably moved our .zshrc, let's put it back.
-rm -f $HOME/.zshrc $HOME/.zshrc.pre-oh-my-zsh
-stow . -t $HOME
+  # oh-my-zsh probably moved our .zshrc, let's put it back.
+  rm -f $HOME/.zshrc $HOME/.zshrc.pre-oh-my-zsh
+  stow . -t $HOME
+fi
+
+ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 # install powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+[ -d "$ZSH_CUSTOM_DIR/themes/powerlevel10k" ] || git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM_DIR/themes/powerlevel10k"
 
 # install zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+[ -d "$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions" ] || git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions"
 
 # install fzf-tab
-git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab
+[ -d "$ZSH_CUSTOM_DIR/plugins/fzf-tab" ] || git clone https://github.com/Aloxaf/fzf-tab "$ZSH_CUSTOM_DIR/plugins/fzf-tab"
 
-# install tailscale
-curl -fsSL https://tailscale.com/install.sh | sh
+# install tailscale if we don't have it yet
+command -v tailscale >/dev/null 2>&1 || curl -fsSL https://tailscale.com/install.sh | sh
 
-# install rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source $HOME/.cargo/env # ensure cargo is available for the rest of the install script
+# install rust if we don't have it yet (rustup drops $HOME/.cargo/env when done)
+[ -f $HOME/.cargo/env ] || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env # ensure cargo is available for the rest of the install script
 
 # install packages from homebrew
 brew install \
@@ -86,7 +92,7 @@ brew install \
   fd ripgrep volta delta
 
 # oh-my-tmux
-git clone --single-branch https://github.com/gpakosz/.tmux.git $HOME/.oh-my-tmux
+[ -d $HOME/.oh-my-tmux ] || git clone --single-branch https://github.com/gpakosz/.tmux.git $HOME/.oh-my-tmux
 mkdir -p $HOME/.config/tmux
 ln -s -f $HOME/.oh-my-tmux/.tmux.conf $HOME/.config/tmux/tmux.conf
 
