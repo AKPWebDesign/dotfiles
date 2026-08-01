@@ -45,7 +45,7 @@ if [ -z "$DOTFILES_AFTER_PULL" ]; then
   # set up gpg key password caching and import gpg key
   export GPG_TTY=$(tty)
   source $HOME/.config/dotfiles/.gpg
-  op read op://secrets/gpg/private.key | gpg --import --batch --passphrase $(op read op://secrets/gpg/password)
+  op read op://secrets/gpg/private.key | gpg --import --batch --pinentry-mode loopback --passphrase-file <(op read op://secrets/gpg/password)
 
   # install ssh key
   mkdir -p $HOME/.ssh
