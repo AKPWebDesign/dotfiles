@@ -13,7 +13,7 @@ elif command -v code >/dev/null 2>&1; then
         exec code "$@"
     else
         # Find the next 'code' in PATH after this script
-        PATH=$(echo "$PATH" | sed "s|$SCRIPT_DIR||g" | sed 's/::/:/g' | sed 's/^://' | sed 's/:$//')
+        PATH=$(echo "$PATH" | tr ':' '\n' | grep -vxF "$SCRIPT_DIR" | paste -sd: -)
         if command -v code >/dev/null 2>&1; then
             exec code "$@"
         else
