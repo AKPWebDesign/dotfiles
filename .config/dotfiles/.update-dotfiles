@@ -21,19 +21,30 @@ git -C "$DOTFILES_DIR" fetch origin $CURRENT_BRANCH &>/dev/null
 if [ "$(git -C "$DOTFILES_DIR" rev-list HEAD..origin/$CURRENT_BRANCH --count 2>/dev/null || echo 0)" -gt 0 ]; then
   # check if we have local changes (including staged and untracked)
   if [ -n "$(git -C "$DOTFILES_DIR" status --porcelain)" ]; then
-    # stash local changes, untracked included
-    git -C "$DOTFILES_DIR" stash -u
-    LOCAL_CHANGES=1
+    # stash local changes, untracked included. if we can't stash (e.g. repo left
+    # in a conflicted state), don't attempt the update at all.
+    if git -C "$DOTFILES_DIR" stash -u; then
+      LOCAL_CHANGES=1
+    else
+      echo "WARNING: couldn't stash local dotfiles changes; skipping update. Check 'git status' in $DOTFILES_DIR."
+      return
+    fi
   fi
 
-  # pull changes
-  git -C "$DOTFILES_DIR" pull origin $CURRENT_BRANCH
-  UPDATED_DOTFILES=true
+  # pull changes; only flag the update as done if the pull actually worked
+  if git -C "$DOTFILES_DIR" pull origin $CURRENT_BRANCH; then
+    UPDATED_DOTFILES=true
+  else
+    echo "WARNING: dotfiles pull failed; skipping update."
+  fi
 
   # restore local changes if we stashed them
   if [ "$LOCAL_CHANGES" = "1" ]; then
     if ! git -C "$DOTFILES_DIR" stash pop; then
-      echo "WARNING: dotfiles stash pop conflicted; your local changes are still in 'git stash' — resolve manually in $DOTFILES_DIR"
+      # a conflicted pop leaves merge markers in the working tree; throw that mess
+      # away and keep the clean upstream files. the local changes are safe in the stash.
+      git -C "$DOTFILES_DIR" reset --hard HEAD &>/dev/null
+      echo "WARNING: your local dotfiles changes conflict with the update. Kept the upstream files; your changes are preserved in 'git stash' — resolve manually in $DOTFILES_DIR."
     fi
   fi
 fi
