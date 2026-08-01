@@ -55,9 +55,6 @@ export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Powerlevel 9k Settings
-DEFAULT_USER=$DEFAULT_USER
-
 # dir options
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_with_package_name"
 
