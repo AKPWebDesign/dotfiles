@@ -57,7 +57,7 @@ if [ -z "$DOTFILES_AFTER_PULL" ]; then
 fi
 
 # install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # oh-my-zsh probably moved our .zshrc, let's put it back.
 rm -f $HOME/.zshrc $HOME/.zshrc.pre-oh-my-zsh
