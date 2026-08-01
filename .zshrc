@@ -23,8 +23,7 @@ if [ -n "$UPDATED_DOTFILES" ]; then
   echo "----------------------------------------"
   echo "Dotfiles updated, re-running install.sh and restarting shell to pull the latest changes."
   echo "----------------------------------------"
-  cd "$DOTFILES_ROOT" || exit 1
-  if DOTFILES_AFTER_PULL=1 bash install.sh; then
+  if cd "$DOTFILES_ROOT" && DOTFILES_AFTER_PULL=1 bash install.sh; then
     clear
     exec $SHELL
   else
