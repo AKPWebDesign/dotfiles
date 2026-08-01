@@ -1,3 +1,5 @@
 .env-local
 .env-op-service-account
 .last-update-check
+.config/tmux/tmux.conf
+.config/tmux/plugins/
