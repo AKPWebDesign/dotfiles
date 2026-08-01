@@ -42,3 +42,8 @@
 	
 [fetch]
 	prune = true
+
+# machine-specific settings (credential helpers, etc.) live outside the repo.
+# this comes last so local settings win on any overlap.
+[include]
+	path = ~/.gitconfig.local

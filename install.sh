@@ -15,6 +15,7 @@ fi
 # create local env files
 touch $CURRENT_DIR/.config/dotfiles/.env-local
 touch $CURRENT_DIR/.config/dotfiles/.env-op-service-account
+touch $HOME/.gitconfig.local
 
 # create local bin folder in case it doesn't exist
 mkdir -p $HOME/.local/bin
