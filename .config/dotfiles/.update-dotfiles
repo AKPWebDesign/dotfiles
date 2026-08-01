@@ -13,10 +13,10 @@ git -C "$DOTFILES_DIR" fetch origin $CURRENT_BRANCH &>/dev/null
 
 # check if we're behind the remote
 if [ $(git -C "$DOTFILES_DIR" rev-list HEAD..origin/$CURRENT_BRANCH --count) -gt 0 ]; then
-  # check if we have local changes
-  if ! git -C "$DOTFILES_DIR" diff --quiet; then
-    # stash local changes
-    git -C "$DOTFILES_DIR" stash
+  # check if we have local changes (including staged and untracked)
+  if [ -n "$(git -C "$DOTFILES_DIR" status --porcelain)" ]; then
+    # stash local changes, untracked included
+    git -C "$DOTFILES_DIR" stash -u
     LOCAL_CHANGES=1
   fi
 
@@ -26,6 +26,8 @@ if [ $(git -C "$DOTFILES_DIR" rev-list HEAD..origin/$CURRENT_BRANCH --count) -gt
 
   # restore local changes if we stashed them
   if [ "$LOCAL_CHANGES" = "1" ]; then
-    git -C "$DOTFILES_DIR" stash pop
+    if ! git -C "$DOTFILES_DIR" stash pop; then
+      echo "WARNING: dotfiles stash pop conflicted; your local changes are still in 'git stash' — resolve manually in $DOTFILES_DIR"
+    fi
   fi
 fi
