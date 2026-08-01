@@ -95,11 +95,6 @@ eval $(thefuck --alias) # this loads thefuck (https://github.com/nvbn/thefuck)
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# load NVM
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 source $ZSH/oh-my-zsh.sh
 
 # aliases must come after oh-my-zsh.sh, or plugins like common-aliases clobber them
