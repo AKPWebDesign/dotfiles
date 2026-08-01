@@ -88,7 +88,7 @@ plugins=(
 source $DOTFILES_DIR/.env-local # local env file
 source $DOTFILES_DIR/.swoosh # just a Nike swoosh lol
 
-eval $(thefuck --alias) # this loads thefuck (https://github.com/nvbn/thefuck)
+command -v thefuck >/dev/null && eval $(thefuck --alias) # this loads thefuck (https://github.com/nvbn/thefuck)
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
