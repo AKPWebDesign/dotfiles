@@ -85,7 +85,7 @@ source $HOME/.cargo/env # ensure cargo is available for the rest of the install 
 brew install \
   tmux thefuck hub lsd deno llvm \
   golang highlight jq fzf gh bat \
-  fd ripgrep volta delta tmux
+  fd ripgrep volta delta
 
 # oh-my-tmux
 git clone --single-branch https://github.com/gpakosz/.tmux.git $HOME/.oh-my-tmux
