@@ -34,6 +34,9 @@ source $HOME/.config/dotfiles/.env
 
 if [ "$(uname)" == "Darwin" ]; then
   brew install 1password-cli gnupg
+else
+  # linux: op is vendored at .bin/op (x86-64) since 1password-cli is a mac-only cask
+  brew install gnupg
 fi
 
 # skip 1Password/gpg/ssh/git-crypt when run after a pull (op session not available in that context)
