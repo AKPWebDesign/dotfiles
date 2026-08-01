@@ -89,7 +89,7 @@ command -v tailscale >/dev/null 2>&1 || curl -fsSL https://tailscale.com/install
 brew install \
   tmux thefuck lsd deno llvm \
   golang highlight jq fzf gh bat \
-  fd ripgrep volta delta
+  fd ripgrep volta delta yt-dlp
 
 # oh-my-tmux
 [ -d $HOME/.oh-my-tmux ] || git clone --single-branch https://github.com/gpakosz/.tmux.git $HOME/.oh-my-tmux
