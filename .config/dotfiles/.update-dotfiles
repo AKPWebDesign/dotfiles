@@ -1,10 +1,18 @@
 # update from git if things have changed on the remote.
 # if there are local changes, they will be stashed and then popped after the update.
 
+# only check for updates every 6 hours, so new shells don't all pay for a git fetch.
+UPDATE_STAMP="$DOTFILES_DIR/.last-update-check"
+if [ -n "$(find "$UPDATE_STAMP" -mmin -360 2>/dev/null)" ]; then
+  return
+fi
+
 # if we don't have internet, exit early.
 if [ -n "$NO_INTERNET" ]; then
   return
 fi
+
+touch "$UPDATE_STAMP"
 
 CURRENT_BRANCH=$(git -C "$DOTFILES_DIR" rev-parse --abbrev-ref HEAD)
 
