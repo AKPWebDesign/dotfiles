@@ -82,8 +82,8 @@ ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 # install fzf-tab
 [ -d "$ZSH_CUSTOM_DIR/plugins/fzf-tab" ] || git clone https://github.com/Aloxaf/fzf-tab "$ZSH_CUSTOM_DIR/plugins/fzf-tab"
 
-# install tailscale if we don't have it yet
-command -v tailscale >/dev/null 2>&1 || curl -fsSL https://tailscale.com/install.sh | sh
+# install tailscale if we do not have it yet. the installer is linux-only
+[ "$(uname)" = "Darwin" ] || command -v tailscale >/dev/null 2>&1 || curl -fsSL https://tailscale.com/install.sh | sh
 
 # install rust if we don't have it yet (rustup drops $HOME/.cargo/env when done)
 [ -f $HOME/.cargo/env ] || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
