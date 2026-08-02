@@ -22,7 +22,7 @@ hlcjs () { hlc --syntax=jsx "$@" }
 hlf () { highlight --font-size 24 --font 'Fira Code' --style moria -O rtf "$@" | pbcopy }
 
 gch() {
-  local branch=$(git branch --all | grep -vE " -> |^[* ]*(remotes/origin/)?_" | fzf | sed 's/^[* ]*//; s#^remotes/origin/##')
+  local branch=$(git branch --all | rg -v " -> |^[* ]*(remotes/origin/)?_" | fzf | sed 's/^[* ]*//; s#^remotes/origin/##')
   [ -n "$branch" ] && git checkout "$branch"
 }
 
