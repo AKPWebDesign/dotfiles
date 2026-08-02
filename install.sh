@@ -34,6 +34,9 @@ fi
 
 # gotta do stow and git-crypt early so files are in their final locations
 brew install stow git-crypt
+
+# pre-create ~/.gnupg so stow does not fold the whole dir into the repo
+mkdir -p -m 700 $HOME/.gnupg
 stow . -t "$HOME"
 
 source $HOME/.config/dotfiles/.env
