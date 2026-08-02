@@ -5,6 +5,8 @@ cd "$CURRENT_DIR" || exit 1
 
 source $CURRENT_DIR/.config/dotfiles/.check-internet # defines internet_up for later use
 
+export HOMEBREW_NO_AUTO_UPDATE=1 # re-runs should not stall on a brew update
+
 # ensure brew is on PATH when script is run from .zshrc after a pull
 if ! command -v brew >/dev/null 2>&1; then
   if [ "$(uname)" = "Darwin" ] && [ -x /opt/homebrew/bin/brew ]; then
@@ -31,6 +33,9 @@ if ! command -v brew >/dev/null 2>&1; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
   fi
 fi
+
+# update taps once here, instead of implicitly per brew install
+brew update
 
 # gotta do stow and git-crypt early so files are in their final locations
 brew install stow git-crypt
