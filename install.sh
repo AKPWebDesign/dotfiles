@@ -53,9 +53,7 @@ if [ -z "$DOTFILES_AFTER_PULL" ]; then
   op read op://secrets/gpg/private.key | gpg --import --batch --pinentry-mode loopback --passphrase-file <(op read op://secrets/gpg/password)
 
   # install ssh key
-  mkdir -p $HOME/.ssh
-  op read op://secrets/ssh/private_key > $HOME/.ssh/id_ed25519
-  chmod 600 $HOME/.ssh/id_ed25519
+  source $CURRENT_DIR/.config/dotfiles/.ssh
 
   # git-crypt should be ready to go now
   git-crypt unlock
