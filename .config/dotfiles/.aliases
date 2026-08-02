@@ -21,7 +21,10 @@ hlc () { pbpaste | highlight --font-size 24 --font 'Fira Code' --style moria -O 
 hlcjs () { hlc --syntax=jsx "$@" }
 hlf () { highlight --font-size 24 --font 'Fira Code' --style moria -O rtf "$@" | pbcopy }
 
-gch() { git checkout "$(git branch --all | fzf | sed 's/^[* ]*//; s#^remotes/origin/##')" }
+gch() {
+  local branch=$(git branch --all | grep -vE " -> |^[* ]*(remotes/origin/)?_" | fzf | sed 's/^[* ]*//; s#^remotes/origin/##')
+  [ -n "$branch" ] && git checkout "$branch"
+}
 
 tsup() { sudo tailscale up --auth-key "$TS_AUTH_KEY" --advertise-exit-node --ssh --accept-dns=false }
 
